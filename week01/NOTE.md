@@ -6,7 +6,7 @@ task_two为作业二
 
 运行结果：
 task_one直接运行week01/maoYan.py
-task_two直接运行week01/task_two/task_two/main.py,当然也可以直接在命令窗口运行''scrapy crawl MaoYanSpider'
+task_two直接运行week01/task_two/main.py,当然也可以直接在命令窗口运行''scrapy crawl MaoYanSpider'
 
 本周课程总结：
 对requests有了基本了解
