@@ -1,5 +1,6 @@
 import scrapy
 import re
+import os.path
 import random
 from scrapy.selector import Selector
 from week01.task_two.task_two.items import MaoYanSpiderItem
@@ -75,6 +76,16 @@ class MaoYanSpider(scrapy.Spider):
             print('可能被猫眼识别，没有获取到数据，请重新执行程序!')
 
         else:
+
+            # 判断是否存在scMovie.csv文件，若存在，清空内容
+            if os.path.exists('./scMovie.csv'):
+
+                with open('./scMovie.csv', "r+") as f:
+
+                    f.seek(0)
+
+                    # 清空文件
+                    f.truncate()
 
             for movie_element_list in movie_element:
 
