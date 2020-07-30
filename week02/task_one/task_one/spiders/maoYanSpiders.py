@@ -3,7 +3,7 @@ import re
 import os.path
 from fake_useragent import UserAgent
 from scrapy.selector import Selector
-from week01.task_two.task_two.items import MaoYanSpiderItem
+from week02.task_one.task_one.items import TaskOneItem
 
 
 class MaoYanSpider(scrapy.Spider):
@@ -37,7 +37,7 @@ class MaoYanSpider(scrapy.Spider):
     # 获取抓取详情信息
     def parse_info(self, response):
 
-        item = MaoYanSpiderItem()
+        item = TaskOneItem()
 
         try:
 
@@ -77,6 +77,10 @@ class MaoYanSpider(scrapy.Spider):
         except Exception:
 
             print('可能被猫眼识别，没有获取到数据，请重新执行程序!')
+
+
+
+
 
 
 

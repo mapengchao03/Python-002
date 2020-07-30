@@ -6,7 +6,7 @@
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 
 
-class TaskTwoPipeline(object):
+class TaskOnePipeline(object):
 
     def process_item(self, item, spider):
 
