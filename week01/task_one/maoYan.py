@@ -30,6 +30,10 @@ try:
 
     movies_info_element = bs_info.select('.movies-list dd .movie-item .movie-item-hover a')[:10]
 
+    if len(movies_info_element) == 0:
+
+        raise Exception
+
     # 遍历每个电影的详情信息
     for movies_detail_list in movies_info_element:
 

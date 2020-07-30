@@ -43,6 +43,10 @@ class MaoYanSpider(scrapy.Spider):
 
             movie_element = response.css('.movies-list dd .movie-item .movie-item-hover a .movie-hover-info').extract()[:10]
 
+            if len(movie_element) == 0:
+
+                raise Exception
+
             # 判断是否存在scMovie.csv文件，若存在，清空内容
             if os.path.exists('./scMovie.csv'):
 
