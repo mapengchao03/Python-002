@@ -113,6 +113,9 @@ class MaoYanSpider(scrapy.Spider):
 
                     yield item
 
+                else:
+                    break
+
             print('数据抓取完整，详情数据查阅 scMovie.csv文件')
 
 

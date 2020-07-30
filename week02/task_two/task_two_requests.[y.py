@@ -1,7 +1,6 @@
 import requests
 import random
-import pandas as pd
-from bs4 import BeautifulSoup as Bs
+import json
 
 
 # 定义随机user-agent
@@ -35,58 +34,33 @@ def headers():
 
     return {
                 'User-Agent': USER_AGENT,
-                # 'content-type': 'application/json; charset=utf-8',
-              }
+                'content-type': 'application/x-www-form-urlencoded; charset=utf-8',
+                'referer': 'https://shimo.im/login?from=home',
+                'origin': 'https://shimo.im'
+
+    }
 
 
-# 电影名称，类型，上映时间，定义一个list
-movie_list = []
+# 手机号，密码
+params = {
+    'mobile': '16638020823',
+    'password': 'MApengchao123'
+}
 
-movie_count = 10
+get_url = 'https://shimo.im/login?from=home'
 
-init_count = 0
+post_url = 'https://shimo.im/lizard-api/auth/password/login'
 
-url = 'https://maoyan.com/films?showType=3'
+# 实例化session
+session = requests.session()
 
-response = requests.get(url, headers=headers())
+# 目的获取cookies
+res = session.get(get_url)
 
-bs_info = Bs(response.text, 'html.parser')
+print(res.status_code)
 
-movies_info_element = bs_info.select('.movies-list dd .movie-item .movie-item-hover a ')
+# 请求真实登陆链接
+response = session.post(post_url, headers=headers(), data=json.dumps(params))
 
-# 遍历每个电影的详情信息
-for movies_detail_list in movies_info_element:
-
-    # 只取前10个
-    if init_count < movie_count:
-
-        # 电影名称
-        movie_name = movies_detail_list.select('.movie-hover-title .name')[0].string
-
-        # 准换成字符串，然后进行拆分，替换
-        # 电影类型
-        movie_type_element = movies_detail_list.select('.movie-hover-title')[1]
-        movie_type = str(movie_type_element).split('</span>')[1].replace('</div>', '').strip()
-
-        # 准换成字符串，然后进行拆分，替换
-        # 电影上映时间
-        movie_time_element = movies_detail_list.select('.movie-hover-title')[3]
-        movie_time = str(movie_time_element).split('</span>')[1].replace('</div>', '').strip()
-
-        init_count += 1
-
-        movie_list.append([movie_name, movie_type, movie_time])
-    else:
-        break
-
-try:
-    movie = pd.DataFrame(data=movie_list)
-
-    # 转存csv
-    movie.to_csv('./movie.csv', encoding='utf8', index=False, header=False)
-
-    print('数据抓取完整，详情数据查阅 movie.csv文件')
-
-except Exception:
-    print('可能被猫眼识别，没有获取到数据，请重新执行程序!')
+print(response.text)
 
