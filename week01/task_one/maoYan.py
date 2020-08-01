@@ -14,6 +14,18 @@ def re_text(html_text):
     return text
 
 
+# 代理
+def http_proxy():
+
+    res = requests.get('https://ip.jiangxianli.com/api/proxy_ip')
+    ip = res.json()['data']['ip']
+    proxies = {
+        'http': 'http://' + ip,
+        'https': 'https://' + ip,
+    }
+    return proxies
+
+
 # 随机user-agent, 禁止从ssl获取，目的提升访问效率
 ua = UserAgent(verify_ssl=False)
 
@@ -38,15 +50,13 @@ try:
     for movies_detail_list in movies_info_element:
 
         # 电影名称
-        movie_name = movies_detail_list.select('.movie-hover-title .name')[0].string
+        movie_name = movies_detail_list.find_all('div', class_="movie-hover-title")[0].contents[1].string
 
         # 电影类型
-        movie_type_element = movies_detail_list.select('.movie-hover-title')[1]
-        movie_type = re_text(str(movie_type_element))
+        movie_type = movies_detail_list.find_all('div', class_="movie-hover-title")[1].contents[2].string.strip()
 
         # 电影上映时间
-        movie_time_element = movies_detail_list.select('.movie-hover-title')[3]
-        movie_time = re_text(str(movie_time_element))
+        movie_time = movies_detail_list.find_all('div', class_="movie-hover-title")[3].contents[2].string.strip()
 
         movie_list.append([movie_name, movie_type, movie_time])
 
