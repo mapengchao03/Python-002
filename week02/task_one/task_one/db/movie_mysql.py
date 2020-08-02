@@ -12,7 +12,7 @@ class ConnDB(object):
         self.db = 'geek_python'
         self.charset = 'utf8mb4'
 
-    # 新增单行数据，需要传入表名
+    # 新增单行数据，需要传入表名，表名在pipeline传入
     def run(self, table_name, values):
         conn = pymysql.connect(
             host=self.host,

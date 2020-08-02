@@ -22,6 +22,7 @@ class TaskOnePipeline(object):
 
         values = (movie_name, movie_type, movie_time)
 
+        # 这里的'geek_python'是实际的表明，根据实际情况更改
         connect_db.run('geek_python', values)
 
         return item
