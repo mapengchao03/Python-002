@@ -5,10 +5,14 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 
+from week02.task_one.task_one.db.movie_mysql import ConnDB
+
 
 class TaskOnePipeline(object):
 
     def process_item(self, item, spider):
+
+        connect_db = ConnDB()
 
         movie_name = item['movie_name']
 
@@ -16,10 +20,8 @@ class TaskOnePipeline(object):
 
         movie_time = item['movie_time']
 
-        output = f'{movie_name},{movie_type},{movie_time}\n'
+        values = (movie_name, movie_type, movie_time)
 
-        with open('./scMovie.csv', 'a+', encoding='utf8') as article:
-
-            article.write(output)
+        connect_db.run('geek_python', values)
 
         return item

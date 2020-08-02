@@ -52,9 +52,17 @@ COOKIES_ENABLED = True
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'task_one.middlewares.TaskOneDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+   'task_one.middlewares.TaskOneDownloaderMiddleware': 543,
+   # 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 400,
+   'task_one.middlewares.RandomHttpProxyMiddleware': 400,
+}
+
+HTTP_PROXY_LIST = [
+   'http://101.4.136.34:81',
+   'http://110.243.13.15:9999',
+   'http://111.13.100.91:80',
+]
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html

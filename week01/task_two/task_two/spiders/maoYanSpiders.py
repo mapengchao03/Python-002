@@ -19,17 +19,17 @@ class MaoYanSpider(scrapy.Spider):
 
     # 随机user-agent, 禁止从ssl获取，目的提升访问效率
     ua = UserAgent(verify_ssl=False)
-    cookie = {'uuid_n_v': 'v1', ' uuid': '3B86C410D39F11EA84945F632DCF0A4D55C95913EA904E5FAAC9E2EA19B779D0',
-              ' _csrf': 'beec5daabd1275ce5d50f8ab635b09088d5ef40adc0ecb5dc815577704266602',
-              ' Hm_lvt_703e94591e87be68cc8da0da7cbd0be2': '1596249145',
-              ' _lxsdk_cuid': '173a7dcfffbc8-046569a3c04ea5-31677301-100200-173a7dcfffb88',
-              ' _lxsdk': '3B86C410D39F11EA84945F632DCF0A4D55C95913EA904E5FAAC9E2EA19B779D0',
-              ' mojo-uuid': '80d550754e96a80ba616c635ca256d8d',
-              ' mojo-session-id': '{"id":"f3d43c9b760ce4894d72351d36fab023","time":1596268108999}',
-              ' mojo-trace-id': '2', ' Hm_lpvt_703e94591e87be68cc8da0da7cbd0be2': '1596268114',
-              ' __mta': '209138349.1596249145688.1596268109307.1596268113649.19',
-              ' _lxsdk_s': '173a8fe3539-a2b-fd5-7b0%7C%7C5'
-              }
+    # cookie = {'uuid_n_v': 'v1', ' uuid': '3B86C410D39F11EA84945F632DCF0A4D55C95913EA904E5FAAC9E2EA19B779D0',
+    #           ' _csrf': 'beec5daabd1275ce5d50f8ab635b09088d5ef40adc0ecb5dc815577704266602',
+    #           ' Hm_lvt_703e94591e87be68cc8da0da7cbd0be2': '1596249145',
+    #           ' _lxsdk_cuid': '173a7dcfffbc8-046569a3c04ea5-31677301-100200-173a7dcfffb88',
+    #           ' _lxsdk': '3B86C410D39F11EA84945F632DCF0A4D55C95913EA904E5FAAC9E2EA19B779D0',
+    #           ' mojo-uuid': '80d550754e96a80ba616c635ca256d8d',
+    #           ' mojo-session-id': '{"id":"f3d43c9b760ce4894d72351d36fab023","time":1596268108999}',
+    #           ' mojo-trace-id': '2', ' Hm_lpvt_703e94591e87be68cc8da0da7cbd0be2': '1596268114',
+    #           ' __mta': '209138349.1596249145688.1596268109307.1596268113649.19',
+    #           ' _lxsdk_s': '173a8fe3539-a2b-fd5-7b0%7C%7C5'
+    #           }
 
     # 正则
     def re_text(self, html_text):
@@ -44,7 +44,7 @@ class MaoYanSpider(scrapy.Spider):
 
         for start_url in self.start_urls:
 
-            response = scrapy.Request(start_url, headers={'User-Agent': self.ua.random},cookies=self.cookie, callback=self.parse_info)
+            response = scrapy.Request(start_url, headers={'User-Agent': self.ua.random}, callback=self.parse_info)
 
             yield response
 
