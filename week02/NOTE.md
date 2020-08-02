@@ -8,3 +8,6 @@ task_one为任务一
 
 执行'scrapy crawl MaoYanSpider --nolog'增加了随机代理IP，同时数据存入数据库
 
+task_two为任务二
+
+task_two_selenium.py为selenium登录石墨文档
