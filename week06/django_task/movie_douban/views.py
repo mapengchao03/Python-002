@@ -27,27 +27,25 @@ def myyear(request, year):
     return render(request, 'myyear.html', {'year': year})
 
 
-# short_comments start > 3
-def short_comments(request):
+# 搜索以及默认显示星级大于3
+def search_result(request):
 
-    data = models.MovieShortComments.objects.filter(star__gt=3).values()
-    return render(request, 'index.html', {'data': data})
+    if request.method == 'POST':
+        return JsonResponse({"result": False, "error_code": 20000, "method": "failed"})
+    else:
 
-
-# 搜索
-# def search_result(request):
-#
-#     if request.method == 'POST':
-#         return JsonResponse({"result": False, "error_code": 20000, "method": "failed"})
-#     else:
-#         if '4' in request.Get.get('star'):
-#             return JsonResponse({"result": False, "error_code": 20000, "method": request.url})
-#         if star_number is not None and text is not None:
-#             data = models.MovieShortComments.objects.filter(star=star_number, short_comment__contains=text).values()
-#         elif star_number is not None and text is None:
-#             data = models.MovieShortComments.objects.filter(star=star_number).values()
-#         elif star_number is None and text is not None:
-#             data = models.MovieShortComments.objects.filter(short_comment__contains=text).values()
-#         else:
-#             data = models.MovieShortComments.objects.filter(star__gt=3).values()
-#         return render(request, 'search.html', {'data': data})
+        star_number = request.GET.get('star', '')
+        short_comment = request.GET.get('short_comment', '')
+        if star_number and short_comment:
+            condition = f'星级等于"{star_number}",短评包含"{short_comment}"'
+            data = models.MovieShortComments.objects.filter(star=star_number, short_comment__contains=short_comment).values()
+        elif star_number and short_comment == '':
+            condition = f'星级等于"{star_number}"'
+            data = models.MovieShortComments.objects.filter(star=star_number).values()
+        elif star_number == '' and short_comment:
+            condition = f'短评包含"{short_comment}"'
+            data = models.MovieShortComments.objects.filter(short_comment__contains=short_comment).values()
+        else:
+            condition = f'默认星级大于"3""'
+            data = models.MovieShortComments.objects.filter(star__gt=3).values()
+        return render(request, 'index.html', {'data': data, 'condition': condition})

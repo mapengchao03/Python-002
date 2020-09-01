@@ -8,8 +8,6 @@ urlpatterns = [
     path('<int:year>/<str:name>', views.name_url, name='name_url'),
     # re_path('(?P<year>[0-9]{4}).html', views.myyear, name='myyear'),
     re_path('(?P<year>[0-9]{4}).html', views.myyear, name='myyear'),
-    # 显示星级大于3短评
-    path('short_comments', views.short_comments),
-    # 搜索框
-    # re_path(r'^short_comments?star=.*', views.search_result),
+    # 显示星级大于3短评和搜索框
+    path('short_comments', views.search_result),
 ]
