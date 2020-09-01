@@ -46,6 +46,6 @@ def search_result(request):
             condition = f'短评包含"{short_comment}"'
             data = models.MovieShortComments.objects.filter(short_comment__contains=short_comment).values()
         else:
-            condition = f'默认星级大于"3""'
+            condition = f'默认星级大于"3"'
             data = models.MovieShortComments.objects.filter(star__gt=3).values()
         return render(request, 'index.html', {'data': data, 'condition': condition})
